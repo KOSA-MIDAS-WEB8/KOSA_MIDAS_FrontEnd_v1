@@ -7,8 +7,7 @@ import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { LeaveWorkLogo } from "../../../asset";
-
-function LeaveWork(): JSX.Element {
+function LeaveWork() {
   return (
     <>
       <Container>
