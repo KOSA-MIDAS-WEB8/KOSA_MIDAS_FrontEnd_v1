@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useCallback, useState } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
+import { useQuery } from "@tanstack/react-query";
 import Edit from "./edit";
 interface dataProps {
   code: string;

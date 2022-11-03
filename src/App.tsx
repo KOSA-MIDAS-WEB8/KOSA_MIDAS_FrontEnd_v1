@@ -11,7 +11,7 @@ import Error from "./status/error";
 import { createGlobalStyle } from "styled-components";
 import Signup from "./users/Signup";
 import Login from "./users/Login";
-
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -31,6 +31,7 @@ function App() {
                 <Route path="/Login" element={<Login />} />
               </Routes>
             </BrowserRouter>
+            <ReactQueryDevtools initialIsOpen={true} />
           </RecoilRoot>
         </ThemeProvider>
       </QueryClientProvider>

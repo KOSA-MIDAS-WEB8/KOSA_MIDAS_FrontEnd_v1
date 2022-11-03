@@ -1,4 +1,3 @@
-import { SubTitle } from "chart.js";
 import styled from "styled-components";
 import { WelcomeImg } from "../../asset";
 import { useState } from "react";
@@ -67,7 +66,7 @@ function Login(): JSX.Element {
   );
 }
 
-const Container = styled.div`
+export const Container = styled.div`
   font-family: "Noto Sans";
   width: 1246px;
   height: 851px;
@@ -81,7 +80,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
 `;
 
-const LogoWrap = styled.div`
+export const LogoWrap = styled.div`
   background-color: #a7b9ff;
   width: 534px;
   height: 851.05px;

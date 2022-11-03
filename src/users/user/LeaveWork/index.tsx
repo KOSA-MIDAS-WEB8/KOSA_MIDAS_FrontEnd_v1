@@ -1,21 +1,20 @@
-import { SubTitle } from 'chart.js';
-import styled from 'styled-components'
-import { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../../BASE_URL';
-import { Link } from 'react-router-dom';
-import { JsxElement } from 'typescript';
-import {LeaveWorkLogo} from '../../../asset';
-import {Container,LogoWrap} from '../../Login'
+import { SubTitle } from "chart.js";
+import styled from "styled-components";
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { BASE_URL } from "../../../base";
+import { Link } from "react-router-dom";
+import { JsxElement } from "typescript";
+import { LeaveWorkLogo } from "../../../asset";
+import { Container, LogoWrap } from "../../Login";
 
-
-function LeaveWork():JSX.Element {
+function LeaveWork(): JSX.Element {
   return (
     <>
       <Container>
         <LogoWrap>
-          <LogoImg src={LeaveWorkLogo}/>
+          <LogoImg src={LeaveWorkLogo} />
         </LogoWrap>
         <LeaveWorkContainer>
           <LeaveWorkTxt>퇴근</LeaveWorkTxt>
@@ -24,15 +23,15 @@ function LeaveWork():JSX.Element {
         </LeaveWorkContainer>
       </Container>
     </>
-  )
+  );
 }
-export default LeaveWork ;
+export default LeaveWork;
 
 const LogoImg = styled.img`
   width: 448px;
   height: 716px;
   display: inline;
-`; 
+`;
 
 const LeaveWorkContainer = styled.section`
   width: 712px;
@@ -41,29 +40,28 @@ const LeaveWorkContainer = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: start;
-
-`
+`;
 const LeaveWorkTxt = styled.div`
   font-size: 96px;
   font-weight: 600;
   margin: 50px 0px;
-`
+`;
 
 const QrReader = styled.div`
   width: 442px;
   height: 344px;
-  background-color:#D9D9D9 ; 
-`
+  background-color: #d9d9d9;
+`;
 
 const LeaveWorkBtn = styled.button`
   width: 442px;
   height: 118px;
-  background-color: #755ADB;
-  border:0px ; 
+  background-color: #755adb;
+  border: 0px;
   border-radius: 40px;
   text-align: center;
   font-weight: 600;
   font-size: 64px;
-  color:white ; 
+  color: white;
   margin-top: 59px;
-`
+`;
