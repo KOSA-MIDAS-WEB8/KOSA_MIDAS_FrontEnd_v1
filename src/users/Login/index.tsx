@@ -5,27 +5,25 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from "../../BASE_URL";
+import { Link } from 'react-router-dom';
 
 function Login():JSX.Element {
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const onLogin = async() => {
-    await axios.post(`${BASE_URL}/auth/sign-in`,{
-      id:id,
-      password:password
+  const onLogin = () => {
+    axios.post(`${BASE_URL}/auth/sign-in`,{
+      id : id,
+      password : password
     })
     .then((res)=>{
-      console.log(res.data.access_token);
       localStorage.setItem("access_token", res.data.access_token);
       alert("로그인을 성공하셨습니다");
       navigate('/main');
-    }).catch((err)=>{
-      alert("아이디가 없거나 비밀번호가 틀리셨습니다.")
-      console.log(err);
-    })
-  }
+    }).catch(()=>{
+      alert("아이디가 없거나 비밀번호를 틀리셨습니다.");
+    })};
 
   return (
     <Container>
@@ -39,7 +37,9 @@ function Login():JSX.Element {
         <LoginLabel margin="24">비밀번호</LoginLabel>
         <LoginInput margin="29" type="password" onChange={(e)=>{setPassword(e.target.value)}}/>
         <LoginBtn onClick={onLogin}>로그인</LoginBtn>
-        <GoSignUp href="/signup">계정이 없다면? 가입 하러가기</GoSignUp>
+        <Link to="/signup">
+          <GoSignUp>계정이 없다면? <b>가입</b> 하러가기</GoSignUp>
+        </Link>
       </LoginForm>
     </Container>
   );
@@ -75,11 +75,14 @@ const LogoImg = styled.img`
 `;
 
 
-const LoginForm = styled.form `
+const LoginForm = styled.div`
   margin-top: 102px;
   margin-left: 91px;
   display: flex;
   flex-direction: column;
+  >a{
+    text-decoration: none;
+  }
 `;
 
 const LoginTxt = styled.span`
