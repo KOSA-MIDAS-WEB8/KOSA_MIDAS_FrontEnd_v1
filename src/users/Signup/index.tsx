@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { idText } from "typescript";
 import { WelcomeImg } from "../../asset";
+import { useState } from "react"
+import axios from "axios";
+import { BASE_URL } from "../../BASE_URL";
 
 function Signup(): JSX.Element {
   return (
@@ -24,13 +26,64 @@ function SignupInputs(): JSX.Element {
   const LeftText = [
     { title: "아이디", name: "id", type: "text" },
     { title: "비밀번호", name: "password", type: "password" },
-    { title: "비밀번호 확인", name: "passwordCheck", type: "password" },
+    { title: "비밀번호 확인", name: "checkPassword", type: "password" },
     { title: "부서코드", name: "department", type: "text" }
   ];
   const RightText = [
     { title: "이름", name: "name", type: "text" },
-    { title: "전화번호", name: "phone_number", type: "text" }
+    { title: "전화번호", name: "phone_number", type: "text", placeholder: "ex) 010-1234-5678" }
   ];
+
+  const [inputs, setInputs] = useState({
+    id: '',
+    password: '',
+    checkPassword: '',
+    name: '',
+    phone_number: '',
+    department: ''
+  });
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  const { id, password, checkPassword, name, phone_number, department } = inputs;
+
+  const onChange = (event: any) => {
+    const { name, value } = event.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+
+  const signup = async () => {
+    await axios.post(`${BASE_URL}/auth/sign-up`,
+      {
+        id: id,
+        password: password,
+        name: name,
+        phone_number: phone_number,
+        department: department,
+        is_admin: isAdmin
+      }
+    ).then(()=>{
+
+    });
+  };
+  const onSignup = async () => {
+    console.log(inputs);
+
+    if (password === checkPassword) {
+      try {
+        await signup();
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+    else {
+      alert("비밀번호가 일치하지 않습니다.");
+    }
+  }
 
   return (
     <Inputs>
@@ -41,6 +94,7 @@ function SignupInputs(): JSX.Element {
             <Input
               name={list.name}
               type={list.type}
+              onChange={onChange}
             />
           </SignupInput>
         ))}
@@ -52,14 +106,16 @@ function SignupInputs(): JSX.Element {
             <Input
               name={list.name}
               type={list.type}
+              onChange={onChange}
+              placeholder={list.placeholder}
             />
           </SignupInput>
         ))}
         <IsAdmin>
           <span>관리자 여부</span>
-          <CheckBox type="checkbox"></CheckBox>
+          <CheckBox type="checkbox" onChange={() => (setIsAdmin(!isAdmin))} />
         </IsAdmin>
-        <SignupBtn>완료</SignupBtn>
+        <SignupBtn onClick={onSignup}>완료</SignupBtn>
       </div>
     </Inputs>
   );
