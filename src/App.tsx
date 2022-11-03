@@ -12,6 +12,7 @@ import Login from "./users/Login";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GoToWork from "./users/user/GoToWork";
 import LeaveWork from "./users/user/LeaveWork";
+import AdminManage from "./users/admin/manage";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/goToWork" element={<GoToWork />} />
                 <Route path="/leaveWork" element={<LeaveWork />} />
+                <Route path="/admin/:adminId" element={<AdminManage />} />
               </Routes>
             </BrowserRouter>
             <ReactQueryDevtools initialIsOpen={true} />

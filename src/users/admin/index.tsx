@@ -1,21 +1,80 @@
 import { asdf } from "./data";
 import DepartmentList from "./list";
 import styled from "styled-components";
-import { useCallback, useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { AiOutlineSearch } from "react-icons/ai";
 import { MdModeEditOutline } from "react-icons/md";
 import { useQuery } from "@tanstack/react-query";
 import Edit from "./edit";
+import axios from "axios";
+import { BASE_URL } from "../../base";
+import Error from "../../status/error";
+import Loading from "../../status/loading";
+import { Link } from "react-router-dom";
 interface dataProps {
-  code: string;
-  name: string;
-  work_hour: number;
-  core_time_hours: number;
-  member_count: number;
-  default_start_hour: string;
+  data: {
+    department_list: [
+      {
+        code: string;
+        name: string;
+        core_time_start: string;
+        core_time_hours: number;
+        work_hour: number;
+        member_count: number;
+        default_start_hour: string;
+      }
+    ];
+  };
 }
-const Admin: React.FC = () => {
-  const [list, setList] = useState<dataProps[]>(asdf);
+const Admin = () => {
+  const token = localStorage.getItem("access_token");
+  const { status, data } = useQuery(["userGet", token], async () => {
+    const { data } = await axios({
+      method: "GET",
+      url: BASE_URL + "/departments",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    console.log(data);
+    return data;
+  });
+  return (
+    <>
+      {status === "loading" ? (
+        <Loading />
+      ) : status === "error" ? (
+        <Error />
+      ) : (
+        <Content data={data} />
+      )}
+    </>
+  );
+};
+const Content = (data: dataProps) => {
+  const token = localStorage.getItem("access_token");
+  useEffect(() => {
+    asdfq();
+  }, []);
+  const asdfq = async () => {
+    const data = axios.post(
+      BASE_URL + "/departments",
+      {
+        name: "소프트웨어개발부",
+        core_time_start: "11:11",
+        core_time_hours: 2,
+        work_hour: 8,
+        default_start_hour: "11:11",
+      },
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    console.log(data);
+    return data;
+  };
+  const dataprops = data.data.department_list;
+  const [list, setList] = useState<any>(dataprops);
   const [state, setState] = useState<boolean>(false);
   const [count, setCount] = useState<number>(-1);
   const Change = (i: number) => {
@@ -27,14 +86,16 @@ const Admin: React.FC = () => {
   };
   const ChangeDataListFunc = useCallback((e: any) => {
     // eslint-disable-next-line array-callback-return
-    const same = asdf.filter((el) => {
+    const same = dataprops.filter((el: { name: string | any[] }) => {
       if (el.name.indexOf(e.target.value) !== -1) {
         return el;
       }
     });
-    const content = same.sort((a, b) => {
-      return a.name.indexOf(e.target.value) - b.name.indexOf(e.target.value);
-    });
+    const content = same.sort(
+      (a: { name: string | any[] }, b: { name: string | any[] }) => {
+        return a.name.indexOf(e.target.value) - b.name.indexOf(e.target.value);
+      }
+    );
     setList(content);
   }, []);
   return (
@@ -66,7 +127,7 @@ const Admin: React.FC = () => {
               <PlusBtn onClick={() => setState(true)}>+</PlusBtn>
             )}
           </Li>
-          {list.map((item, i) => (
+          {list.map((item: any, i: number) => (
             <Li>
               <Box>
                 {i === count ? (
@@ -83,9 +144,12 @@ const Admin: React.FC = () => {
                   </>
                 ) : (
                   <>
-                    <Box2 state={i === count}>
-                      <DepartmentList data={item} />
-                    </Box2>
+                    <Link to={`/admin/${item.code}`}>
+                      <Box2 state={i === count}>
+                        <DepartmentList data={item} />
+                      </Box2>
+                    </Link>
+
                     <EditBtn onClick={() => Change(i)} />
                   </>
                 )}

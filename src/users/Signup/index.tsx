@@ -64,6 +64,7 @@ function SignupInputs(): JSX.Element {
   };
 
   const signup = async () => {
+    console.log(isAdmin);
     await axios
       .post(`${BASE_URL}/auth/sign-up`, {
         id: id,
