@@ -6,13 +6,12 @@ import { RecoilRoot } from "recoil";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ThemeProvider } from "styled-components";
 import { theme } from "./theme/theme";
-import Loading from "./status/loading";
-import Error from "./status/error";
 import { createGlobalStyle } from "styled-components";
 import Signup from "./users/Signup";
 import Login from "./users/Login";
-import GoToWork from './users/user/GoToWork';
-import LeaveWork from './users/user/LeaveWork';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import GoToWork from "./users/user/GoToWork";
+import LeaveWork from "./users/user/LeaveWork";
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -26,14 +25,13 @@ function App() {
                 <Route path="/" element={<Main />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/admin" element={<Admin />} />
-                <Route path="/load" element={<Loading />} />
-                <Route path="/error" element={<Error />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path="/Login" element={<Login />} />
-                <Route path="/GoToWork" element={<GoToWork />} />
-                <Route path="/LeaveWork" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/goToWork" element={<GoToWork />} />
+                <Route path="/leaveWork" element={<LeaveWork />} />
               </Routes>
             </BrowserRouter>
+            <ReactQueryDevtools initialIsOpen={true} />
           </RecoilRoot>
         </ThemeProvider>
       </QueryClientProvider>
