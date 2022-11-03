@@ -3,11 +3,10 @@ import styled from 'styled-components'
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../../../BASE_URL';
+import { BASE_URL } from '../../../base';
 import { Link } from 'react-router-dom';
 import { JsxElement } from 'typescript';
 import {LeaveWorkLogo} from '../../../asset';
-import {Container,LogoWrap} from '../../Login'
 
 
 function LeaveWork():JSX.Element {
@@ -27,7 +26,29 @@ function LeaveWork():JSX.Element {
   )
 }
 export default LeaveWork ;
+const Container = styled.div`
+  font-family: "Noto Sans";
+  width: 1246px;
+  height: 851px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
+const LogoWrap = styled.div`
+  background-color: #a7b9ff;
+  width: 534px;
+  height: 851.05px;
+  border-radius: 40px 0 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const LogoImg = styled.img`
   width: 448px;
   height: 716px;
