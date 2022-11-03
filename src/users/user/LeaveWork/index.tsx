@@ -20,7 +20,14 @@ function LeaveWork() {
         <LeaveWorkContainer>
           <LeaveWorkTxt>퇴근</LeaveWorkTxt>
           <QrReader></QrReader>
-          <LeaveWorkBtn onClick={() => setState(false)}>퇴근하기</LeaveWorkBtn>
+          <LeaveWorkBtn
+            onClick={() => {
+              setState(false);
+              window.alert("퇴근했습니다.");
+            }}
+          >
+            퇴근하기
+          </LeaveWorkBtn>
         </LeaveWorkContainer>
       </Container>
     </>
