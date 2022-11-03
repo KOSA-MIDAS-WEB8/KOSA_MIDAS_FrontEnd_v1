@@ -7,7 +7,10 @@ import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { LeaveWorkLogo } from "../../../asset";
+import { chulgeunState } from "../../../atom/index";
+import { useSetRecoilState } from "recoil";
 function LeaveWork() {
+  const setState = useSetRecoilState(chulgeunState);
   return (
     <>
       <Container>
@@ -17,7 +20,7 @@ function LeaveWork() {
         <LeaveWorkContainer>
           <LeaveWorkTxt>퇴근</LeaveWorkTxt>
           <QrReader></QrReader>
-          <LeaveWorkBtn>퇴근하기</LeaveWorkBtn>
+          <LeaveWorkBtn onClick={() => setState(false)}>퇴근하기</LeaveWorkBtn>
         </LeaveWorkContainer>
       </Container>
     </>

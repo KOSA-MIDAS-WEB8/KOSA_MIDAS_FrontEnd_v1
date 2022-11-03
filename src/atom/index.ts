@@ -11,3 +11,7 @@ export const editDataState = atom({
     default: -1,
   },
 });
+export const chulgeunState = atom({
+  key: "chulgeunState",
+  default: false,
+});
