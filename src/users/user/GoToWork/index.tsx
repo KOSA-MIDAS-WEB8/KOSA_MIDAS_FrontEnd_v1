@@ -7,7 +7,10 @@ import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { GoToWorkLogo } from "../../../asset";
+import { chulgeunState } from "../../../atom/index";
+import { useSetRecoilState } from "recoil";
 function GoToWork(): JSX.Element {
+  const setState = useSetRecoilState(chulgeunState);
   return (
     <>
       <Container>
@@ -17,7 +20,7 @@ function GoToWork(): JSX.Element {
         <GoToWorkContainer>
           <GoToWorkTxt>출근</GoToWorkTxt>
           <QrReader></QrReader>
-          <GoToWorkBtn>출근하기</GoToWorkBtn>
+          <GoToWorkBtn onClick={() => setState(true)}>출근하기</GoToWorkBtn>
         </GoToWorkContainer>
       </Container>
     </>

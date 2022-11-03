@@ -15,8 +15,11 @@ import LeaveWork from "./users/user/LeaveWork";
 import AdminManage from "./users/admin/manage";
 import TimeLine from "./users/user/TimeLine";
 import { Chart } from "./users/admin/chart";
+import { chulgeunState } from "./atom/index";
+import { useRecoilValue } from "recoil";
 function App() {
   const queryClient = new QueryClient();
+  const state = useRecoilValue(chulgeunState);
   return (
     <>
       <QueryClientProvider client={queryClient}>
@@ -38,6 +41,7 @@ function App() {
 
                 <Route path="/admin/:adminId" element={<AdminManage />} />
                 <Route path="/admin/chart/:chartId" element={<Chart />} />
+                {state ? <>출근상태입니다</> : <>퇴근상태입니다.</>}
               </Routes>
             </BrowserRouter>
             <ReactQueryDevtools initialIsOpen={true} />
