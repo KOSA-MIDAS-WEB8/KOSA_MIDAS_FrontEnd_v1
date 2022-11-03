@@ -7,7 +7,6 @@ import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { LeaveWorkLogo } from "../../../asset";
-import { Container, LogoWrap } from "../../Login";
 
 function LeaveWork(): JSX.Element {
   return (
@@ -26,13 +25,34 @@ function LeaveWork(): JSX.Element {
   );
 }
 export default LeaveWork;
-
 const LogoImg = styled.img`
   width: 448px;
   height: 716px;
   display: inline;
 `;
+const Container = styled.div`
+  font-family: "Noto Sans";
+  width: 1246px;
+  height: 851px;
+  background-color: white;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
 
+const LogoWrap = styled.div`
+  background-color: #a7b9ff;
+  width: 534px;
+  height: 851.05px;
+  border-radius: 40px 0 0 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 const LeaveWorkContainer = styled.section`
   width: 712px;
   height: 851px;
