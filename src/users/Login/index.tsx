@@ -13,17 +13,21 @@ function Login():JSX.Element {
   const navigate = useNavigate();
 
   const onLogin = () => {
-    axios.post(`${BASE_URL}/auth/sign-in`,{
-      id : id,
-      password : password
-    })
-    .then((res)=>{
-      localStorage.setItem("access_token", res.data.access_token);
-      alert("로그인을 성공하셨습니다");
-      navigate('/main');
-    }).catch(()=>{
-      alert("아이디가 없거나 비밀번호를 틀리셨습니다.");
-    })};
+    if (id.length < 8 || password.length < 8 ) {
+      alert("아이디또느 비밀번호의 길이가 잘못되었습니다.");
+    } else {
+      axios.post(`${BASE_URL}/auth/sign-in`,{
+        id : id,
+        password : password
+      })
+      .then((res)=>{
+        localStorage.setItem("access_token", res.data.access_token);
+        alert("로그인을 성공하셨습니다");
+        navigate('/main');
+      }).catch(()=>{
+        alert("아이디가 없거나 비밀번호를 틀리셨습니다.");
+      })
+    }};
 
   return (
     <Container>
