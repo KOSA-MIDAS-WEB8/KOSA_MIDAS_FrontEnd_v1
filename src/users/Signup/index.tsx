@@ -4,6 +4,7 @@ import { WelcomeImg } from "../../asset";
 import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "../../base";
+import { useNavigate } from "react-router-dom";
 
 function Signup(): JSX.Element {
   return (
@@ -26,7 +27,7 @@ function Signup(): JSX.Element {
 
 function SignupInputs(): JSX.Element {
   const LeftText = [
-    { title: "아이디", name: "id", type: "text" },
+    { title: "아이디", name: "id", type: "text", placeholder: "4자 이상 16자리 이하" },
     { title: "비밀번호", name: "password", type: "password" },
     { title: "비밀번호 확인", name: "checkPassword", type: "password" },
     { title: "부서코드", name: "department", type: "text" },
@@ -74,21 +75,24 @@ function SignupInputs(): JSX.Element {
         department: department,
         is_admin: isAdmin,
       })
-      .then(() => {});
+      .then(() => {
+        alert("회원가입이 완료되었습니다.\n 로그인 해주세요 :)");
+        navigate('/login');
+      });
   };
   const onSignup = async () => {
-    console.log(inputs);
-
     if (password === checkPassword) {
       try {
         await signup();
-      } catch (error) {
-        console.log(error);
+      } catch (error: any) {
+        alert(error.response.data.message);
       }
     } else {
       alert("비밀번호가 일치하지 않습니다.");
     }
   };
+
+  const navigate = useNavigate();
 
   return (
     <Inputs>
@@ -96,7 +100,12 @@ function SignupInputs(): JSX.Element {
         {LeftText.map((list) => (
           <SignupInput>
             <Title>{list.title}</Title>
-            <Input name={list.name} type={list.type} onChange={onChange} />
+            <Input
+              name={list.name}
+              type={list.type}
+              onChange={onChange}
+              placeholder={list.placeholder}
+            />
           </SignupInput>
         ))}
       </div>
@@ -116,9 +125,7 @@ function SignupInputs(): JSX.Element {
           <span>관리자 여부</span>
           <CheckBox type="checkbox" onChange={() => setIsAdmin(!isAdmin)} />
         </IsAdmin>
-        <Link to="/login">
-          <SignupBtn onClick={onSignup}>완료</SignupBtn>
-        </Link>
+        <SignupBtn onClick={onSignup}>완료</SignupBtn>
       </div>
     </Inputs>
   );
