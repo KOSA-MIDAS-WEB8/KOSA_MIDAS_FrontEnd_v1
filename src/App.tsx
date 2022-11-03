@@ -24,7 +24,8 @@ function App() {
             <BrowserRouter>
               <GlobalStyle />
               <Routes>
-                <Route path="/" element={<Main />} />
+                <Route path="/*" element={<Main />} />
+                <Route path="/main" element={<Main />} />
                 <Route path="/user" element={<User />} />
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/signup" element={<Signup />} />
