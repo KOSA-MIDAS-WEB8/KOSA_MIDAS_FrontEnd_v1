@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { BASE_URL } from "../../../BASE_URL";
+import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { GoToWorkLogo } from "../../../asset";
