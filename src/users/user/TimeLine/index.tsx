@@ -1,112 +1,131 @@
 import styled from 'styled-components';
-import { ToDoDelLogo,ToDoFixLogo } from '../../../asset';
+import { ToDoDelLogo, ToDoFixLogo } from '../../../asset';
 import { useQuery } from '@tanstack/react-query';
 import { stringify } from 'querystring';
 import axios from 'axios';
-import {BASE_URL} from '../../../base'; 
+import { BASE_URL } from '../../../base';
+import { useEffect, useState } from 'react';
 
-function TimeLine():JSX.Element {
+function TimeLine(): JSX.Element {
+  const accessToken = localStorage.getItem('access_token');
+
+  const getDepartmentCode = async () => {
+    await axios
+      .get(`${BASE_URL}/auth/user-info`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      }).then((res) => {
+        console.log(res.data)
+      })
+  };
+
+  // const getTeamInfo = async () => {
+  //   const departmentCode = getDepartmentCode();
+  //   console.log(departmentCode);
+
+  //   await axios
+  //     .get(`${BASE_URL}/departments/${departmentCode}/users`, {
+  //       headers: { Authorization: `Bearer ${accessToken}` },
+  //     })
+  //     .then((res) => {
+  //       console.log(res);
+  //     })
+  // }
+  useEffect(() => {
+    getDepartmentCode();
+  }, []);
+
   return (
-    <>
-      <Container>
-        <Header>
-          <Date>2022년 11월 3일</Date>
-          <WorkTimes>
-            <Time>출근시간:<Paint color="#2F55DD">7시</Paint></Time>
-            <Time>근무시간:<Paint color="#2F55DD">7시간</Paint></Time>
-            <Time>초과 근무시간:<Paint color="#C73E1D">0시간</Paint></Time>
-          </WorkTimes>
-        </Header>
-        <Main>
-          <Peoples>
-            <NameTxt>이름</NameTxt>
-            <Users>
-              <UserName>*이윤서</UserName>
-              <UserName>*이승민</UserName>
-              <UserName>*김진건</UserName>
-              <UserName>*안윤지</UserName>
-            </Users>
-          </Peoples>
-          <TimeLineBox>
-            <TimeLineTitle>OO님의 타임라인</TimeLineTitle>
-            <HourBox>
-              <HourTxt>6시</HourTxt>
-              <HourTxt>7시</HourTxt>
-              <HourTxt>8시</HourTxt>
-              <HourTxt>9시</HourTxt>
-              <HourTxt>10시</HourTxt>
-              <HourTxt>11시</HourTxt>
-              <HourTxt>12시</HourTxt>
-              <HourTxt>13시</HourTxt>
-              <HourTxt>14시</HourTxt>
-              <HourTxt>15시</HourTxt>
-              <HourTxt>16시</HourTxt>
-              <HourTxt>17시</HourTxt>
-              <HourTxt>18시</HourTxt>
-              <HourTxt>19시</HourTxt>
-              <HourTxt>20시</HourTxt>
-              <HourTxt>21시</HourTxt>
-              <HourTxt>22시</HourTxt>
-              <HourTxt>23시</HourTxt>
-              <HourTxt>24시</HourTxt>
-            </HourBox>
-            <TimeShow></TimeShow>
-            <ToDoListContainer>
-              <ToDoList>
-                <ToDoHeader>
-                  <ToDoTitle>해야할 일</ToDoTitle>
-                  <ToDoFix src = {ToDoFixLogo}/>
-                </ToDoHeader>
-                <ToDoInput/>
-                <ToDoPrint>
-                  <ToDoLi>
-                    <LiTxt>7시-뭐뭐하기</LiTxt>
-                    <LiDel src={ToDoDelLogo}/>
-                  </ToDoLi>
-                </ToDoPrint>
-              </ToDoList>
-              <ToDoList>
-                <ToDoHeader>
-                  <ToDoTitle>완료한 일</ToDoTitle>
-                  <ToDoFix src = {ToDoFixLogo}/>
-                </ToDoHeader>
-                <ToDoInput/>
-                <ToDoPrint>
-                  <ToDoLi>
-                    <LiTxt>7시-뭐뭐하기</LiTxt>
-                    <LiDel src={ToDoDelLogo}/>
-                  </ToDoLi>
-                </ToDoPrint>
-              </ToDoList>
-              <ToDoList>
-                <ToDoHeader>
-                  <ToDoTitle>작업중인 일</ToDoTitle>
-                  <ToDoFix src = {ToDoFixLogo}/>
-                </ToDoHeader>
-                <ToDoInput/>
-                <ToDoPrint>
-                  <ToDoLi>
-                    <LiTxt>7시-뭐뭐하기</LiTxt>
-                    <LiDel src={ToDoDelLogo}/>
-                  </ToDoLi>
-                </ToDoPrint>
-              </ToDoList>
-            </ToDoListContainer>
-          </TimeLineBox>
-        </Main>
-      </Container>
-    </>
-  )
-}
+    <Container>
+      <Header>
+        <Date>2022년</Date>
+        <WorkTimes>
+          <Time>출근시간:<Paint color="#2F55DD">7시</Paint></Time>
+          <Time>근무시간:<Paint color="#2F55DD">7시간</Paint></Time>
+          <Time>초과 근무시간:<Paint color="#C73E1D">0시간</Paint></Time>
+        </WorkTimes>
+      </Header>
+      <Main>
+        <Peoples>
+          <NameTxt>팀원</NameTxt>
+          <Users>
+            <UserName>*이윤서</UserName>
+            <UserName>*이승민</UserName>
+            <UserName>*김진건</UserName>
+            <UserName>*안윤지</UserName>
+          </Users>
+        </Peoples>
+        <TimeLineBox>
+          <TimeLineTitle>OO님의 타임라인</TimeLineTitle>
+          <HourBox>
+            <HourTxt>6시</HourTxt>
+            <HourTxt>7시</HourTxt>
+            <HourTxt>8시</HourTxt>
+            <HourTxt>9시</HourTxt>
+            <HourTxt>10시</HourTxt>
+            <HourTxt>11시</HourTxt>
+            <HourTxt>12시</HourTxt>
+            <HourTxt>13시</HourTxt>
+            <HourTxt>14시</HourTxt>
+            <HourTxt>15시</HourTxt>
+            <HourTxt>16시</HourTxt>
+            <HourTxt>17시</HourTxt>
+            <HourTxt>18시</HourTxt>
+            <HourTxt>19시</HourTxt>
+            <HourTxt>20시</HourTxt>
+            <HourTxt>21시</HourTxt>
+            <HourTxt>22시</HourTxt>
+            <HourTxt>23시</HourTxt>
+            <HourTxt>24시</HourTxt>
+          </HourBox>
+          <TimeShow></TimeShow>
+          <ToDoListContainer>
+            <ToDoList>
+              <ToDoHeader>
+                <ToDoTitle>해야할 일</ToDoTitle>
+                <ToDoFix src={ToDoFixLogo} />
+              </ToDoHeader>
+              <ToDoInput />
+              <ToDoPrint>
+                <ToDoLi>
+                  <LiTxt>7시-뭐뭐하기</LiTxt>
+                  <LiDel src={ToDoDelLogo} />
+                </ToDoLi>
+              </ToDoPrint>
+            </ToDoList>
+            <ToDoList>
+              <ToDoHeader>
+                <ToDoTitle>완료한 일</ToDoTitle>
+                <ToDoFix src={ToDoFixLogo} />
+              </ToDoHeader>
+              <ToDoInput />
+              <ToDoPrint>
+                <ToDoLi>
+                  <LiTxt>7시-뭐뭐하기</LiTxt>
+                  <LiDel src={ToDoDelLogo} />
+                </ToDoLi>
+              </ToDoPrint>
+            </ToDoList>
+            <ToDoList>
+              <ToDoHeader>
+                <ToDoTitle>작업중인 일</ToDoTitle>
+                <ToDoFix src={ToDoFixLogo} />
+              </ToDoHeader>
+              <ToDoInput />
+              <ToDoPrint>
+                <ToDoLi>
+                  <LiTxt>7시-뭐뭐하기</LiTxt>
+                  <LiDel src={ToDoDelLogo} />
+                </ToDoLi>
+              </ToDoPrint>
+            </ToDoList>
+          </ToDoListContainer>
+        </TimeLineBox>
+      </Main>
+    </Container>
+  );
+};
 
-
-export default TimeLine ; 
-
-
-
-
-
-
+export default TimeLine;
 
 const Container = styled.div`
   font-family: 'Noto Sans'; 
@@ -153,8 +172,8 @@ const Time = styled.span`
   justify-content: center;
   align-items: center;
 `
-const Paint = styled.span<{color:string}>`
-  color:${props=>props.color};
+const Paint = styled.span<{ color: string }>`
+  color:${props => props.color};
 `
 
 
