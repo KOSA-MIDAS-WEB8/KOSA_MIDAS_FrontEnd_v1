@@ -2,7 +2,10 @@ import styled, { keyframes } from "styled-components";
 const Loading: React.FC = () => {
   return (
     <>
-      <Spinner />
+      <Box>
+        <Spinner />
+        <Font>Loading...</Font>
+      </Box>
     </>
   );
 };
@@ -17,14 +20,30 @@ const turn = keyframes`
 `;
 const Spinner = styled.div`
   position: relative;
-  left: 200px;
-  top: 200px;
-  width: 300px;
-  height: 300px;
+  left: 120px;
+  width: 250px;
+  height: 250px;
   border: 20px solid ${(props) => props.theme.colors.white};
   border-bottom-color: ${(props) => props.theme.colors.purple};
   border-radius: 50%;
   display: inline-block;
   box-sizing: border-box;
-  animation: ${turn} 1s linear infinite;
+  animation: ${turn} 2.5s linear infinite;
+`;
+const Box = styled.div`
+  position: relative;
+  top: 250px;
+  width: 500px;
+  height: 505px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+`;
+const Font = styled.div`
+  width: 480px;
+  height: 130px;
+  font-size: 128px;
+  font: ${(props) => props.theme.font.en};
+  color: ${(props) => props.theme.colors.white};
+  font-weight: 700;
 `;
