@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { WelcomeImg } from "../../asset";
-import { useState } from "react"
+import { useState } from "react";
 import axios from "axios";
-import { BASE_URL } from "../../BASE_URL";
+import { BASE_URL } from "../../base";
 
 function Signup(): JSX.Element {
   return (
@@ -15,37 +15,45 @@ function Signup(): JSX.Element {
         <Topic>회원가입</Topic>
         <SignupInputs />
         <Link to="/login">
-          <GoLogin>계정이 없다면? <b>로그인</b> 하러가기</GoLogin>
+          <GoLogin>
+            계정이 없다면? <b>로그인</b> 하러가기
+          </GoLogin>
         </Link>
       </Inside>
     </Container>
   );
-};
+}
 
 function SignupInputs(): JSX.Element {
   const LeftText = [
     { title: "아이디", name: "id", type: "text" },
     { title: "비밀번호", name: "password", type: "password" },
     { title: "비밀번호 확인", name: "checkPassword", type: "password" },
-    { title: "부서코드", name: "department", type: "text" }
+    { title: "부서코드", name: "department", type: "text" },
   ];
   const RightText = [
     { title: "이름", name: "name", type: "text" },
-    { title: "전화번호", name: "phone_number", type: "text", placeholder: "ex) 010-1234-5678" }
+    {
+      title: "전화번호",
+      name: "phone_number",
+      type: "text",
+      placeholder: "ex) 010-1234-5678",
+    },
   ];
 
   const [inputs, setInputs] = useState({
-    id: '',
-    password: '',
-    checkPassword: '',
-    name: '',
-    phone_number: '',
-    department: ''
+    id: "",
+    password: "",
+    checkPassword: "",
+    name: "",
+    phone_number: "",
+    department: "",
   });
 
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const { id, password, checkPassword, name, phone_number, department } = inputs;
+  const { id, password, checkPassword, name, phone_number, department } =
+    inputs;
 
   const onChange = (event: any) => {
     const { name, value } = event.target;
@@ -56,18 +64,16 @@ function SignupInputs(): JSX.Element {
   };
 
   const signup = async () => {
-    await axios.post(`${BASE_URL}/auth/sign-up`,
-      {
+    await axios
+      .post(`${BASE_URL}/auth/sign-up`, {
         id: id,
         password: password,
         name: name,
         phone_number: phone_number,
         department: department,
-        is_admin: isAdmin
-      }
-    ).then(()=>{
-
-    });
+        is_admin: isAdmin,
+      })
+      .then(() => {});
   };
   const onSignup = async () => {
     console.log(inputs);
@@ -75,15 +81,13 @@ function SignupInputs(): JSX.Element {
     if (password === checkPassword) {
       try {
         await signup();
-      }
-      catch (error) {
+      } catch (error) {
         console.log(error);
       }
-    }
-    else {
+    } else {
       alert("비밀번호가 일치하지 않습니다.");
     }
-  }
+  };
 
   return (
     <Inputs>
@@ -91,11 +95,7 @@ function SignupInputs(): JSX.Element {
         {LeftText.map((list) => (
           <SignupInput>
             <Title>{list.title}</Title>
-            <Input
-              name={list.name}
-              type={list.type}
-              onChange={onChange}
-            />
+            <Input name={list.name} type={list.type} onChange={onChange} />
           </SignupInput>
         ))}
       </div>
@@ -113,13 +113,15 @@ function SignupInputs(): JSX.Element {
         ))}
         <IsAdmin>
           <span>관리자 여부</span>
-          <CheckBox type="checkbox" onChange={() => (setIsAdmin(!isAdmin))} />
+          <CheckBox type="checkbox" onChange={() => setIsAdmin(!isAdmin)} />
         </IsAdmin>
-        <SignupBtn onClick={onSignup}>완료</SignupBtn>
+        <Link to="/login">
+          <SignupBtn onClick={onSignup}>완료</SignupBtn>
+        </Link>
       </div>
     </Inputs>
   );
-};
+}
 
 const Container = styled.div`
   width: 1600px;
@@ -135,12 +137,12 @@ const Container = styled.div`
 const WelcomeBox = styled.div`
   height: inherit;
   width: 534px;
-  background: #A7B9FF;
+  background: #a7b9ff;
   border-radius: 40px 0px 0px 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  >img{
+  > img {
     width: 460px;
   }
 `;
@@ -151,7 +153,7 @@ const Inside = styled.div`
   flex-direction: column;
   gap: 26px;
   padding: 43px 78px;
-  >a{
+  > a {
     text-decoration: none;
   }
 `;
@@ -162,7 +164,7 @@ const Topic = styled.span`
 const Inputs = styled.div`
   display: flex;
   gap: 26px;
-  >div{
+  > div {
     display: flex;
     flex-direction: column;
     gap: 24px;
@@ -181,7 +183,7 @@ const Input = styled.input`
   width: 434px;
   height: 59px;
   padding: 0 23px;
-  background: #D9D9D9;
+  background: #d9d9d9;
   border-radius: 20px;
   outline: none;
   border: none;
@@ -201,7 +203,7 @@ const CheckBox = styled.input`
   height: 30px;
 `;
 const SignupBtn = styled.button`
-  background: #755ADB;
+  background: #755adb;
   border-radius: 50px;
   font-weight: 600;
   font-size: 36px;

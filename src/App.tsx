@@ -10,7 +10,7 @@ import Loading from "./status/loading";
 import Error from "./status/error";
 import { createGlobalStyle } from "styled-components";
 import Signup from "./users/Signup";
-import Login from './users/Login';
+import Login from "./users/Login";
 
 function App() {
   const queryClient = new QueryClient();
@@ -28,7 +28,7 @@ function App() {
                 <Route path="/load" element={<Loading />} />
                 <Route path="/error" element={<Error />} />
                 <Route path="/signup" element={<Signup />} />
-                <Route path='/Login' element={<Login/>}/> 
+                <Route path="/Login" element={<Login />} />
               </Routes>
             </BrowserRouter>
           </RecoilRoot>
