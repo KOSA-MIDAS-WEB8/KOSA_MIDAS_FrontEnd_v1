@@ -1,4 +1,3 @@
-import { asdf } from "./data";
 import DepartmentList from "./list";
 import styled from "styled-components";
 import { useState, useCallback, useEffect } from "react";
@@ -11,6 +10,8 @@ import { BASE_URL } from "../../base";
 import Error from "../../status/error";
 import Loading from "../../status/loading";
 import { Link } from "react-router-dom";
+import { editDataState } from "../../atom";
+import { useRecoilState } from "recoil";
 interface dataProps {
   data: {
     department_list: [
@@ -77,6 +78,7 @@ const Content = (data: dataProps) => {
   const [list, setList] = useState<any>(dataprops);
   const [state, setState] = useState<boolean>(false);
   const [count, setCount] = useState<number>(-1);
+  const [dataState, setDataState] = useRecoilState(editDataState);
   const Change = (i: number) => {
     if (count !== -1) {
       return;
@@ -98,6 +100,31 @@ const Content = (data: dataProps) => {
     );
     setList(content);
   }, []);
+  const setData = (code: string) => {
+    const asdf = {
+      name: dataState.name,
+      core_time_start: `${dataState.core_time_start}:${dataState.core}`,
+      core_time_hours: dataState.core_time_hours,
+      work_hour: dataState.default,
+      default_start_hours: `${dataState.core_time_hours}:${dataState.work_hour}`,
+    };
+    axios.patch(BASE_URL + `/departments/${code}`, asdf, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setCount(-1);
+  };
+  const removeData = () => {
+    setDataState({
+      name: "",
+      core_time_start: -1,
+      core: -1,
+      core_time_hours: -1,
+      work_hour: -1,
+      default_start_hour: -1,
+      default: -1,
+    });
+    setCount(-1);
+  };
   return (
     <>
       <Layout>
@@ -135,10 +162,10 @@ const Content = (data: dataProps) => {
                     <Box2 state={i === count}>
                       <Edit />
                     </Box2>
-                    <SubmitButton onClick={() => setCount(-1)}>
+                    <SubmitButton onClick={() => setData(item.code)}>
                       확인
                     </SubmitButton>
-                    <DeleteButton onClick={() => setCount(-1)}>
+                    <DeleteButton onClick={() => removeData()}>
                       취소
                     </DeleteButton>
                   </>

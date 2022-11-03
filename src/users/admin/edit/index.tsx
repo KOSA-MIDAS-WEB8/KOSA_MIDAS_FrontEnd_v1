@@ -1,9 +1,25 @@
 import styled from "styled-components";
+import { editDataState } from "../../../atom";
+import { useRecoilState } from "recoil";
 const Edit = () => {
+  const [state, setState] = useRecoilState(editDataState);
   return (
     <>
       <Title>
-        부서명: <InputTitle></InputTitle>{" "}
+        부서명:{" "}
+        <InputTitle
+          onChange={(e: any) => {
+            setState({
+              name: "",
+              core_time_start: state.core_time_start,
+              core: state.core,
+              core_time_hours: state.core_time_hours,
+              work_hour: state.work_hour,
+              default_start_hour: state.default_start_hour,
+              default: state.default,
+            });
+          }}
+        ></InputTitle>
       </Title>
       <Ulprops>
         <Liprops>
@@ -17,6 +33,15 @@ const Edit = () => {
                   if (e.target.value > 24) {
                     e.target.value = 24;
                   }
+                  setState({
+                    name: state.name,
+                    core_time_start: e.target.value,
+                    core: state.core,
+                    core_time_hours: state.core_time_hours,
+                    work_hour: state.work_hour,
+                    default_start_hour: state.default_start_hour,
+                    default: state.default,
+                  });
                 }}
               ></Input>
               :
@@ -27,6 +52,15 @@ const Edit = () => {
                   if (e.target.value > 59) {
                     e.target.value = 59;
                   }
+                  setState({
+                    name: state.name,
+                    core_time_start: state.core_time_start,
+                    core: e.target.value,
+                    core_time_hours: state.core_time_hours,
+                    work_hour: state.work_hour,
+                    default_start_hour: state.default_start_hour,
+                    default: state.default,
+                  });
                 }}
               ></Input>
             </Li>
@@ -39,6 +73,15 @@ const Edit = () => {
                   if (e.target.value > 24) {
                     e.target.value = 24;
                   }
+                  setState({
+                    name: state.name,
+                    core_time_start: state.core_time_start,
+                    core: state.core,
+                    core_time_hours: e.target.value,
+                    work_hour: state.work_hour,
+                    default_start_hour: state.default_start_hour,
+                    default: state.default,
+                  });
                 }}
               ></Input>
               :
@@ -49,6 +92,15 @@ const Edit = () => {
                   if (e.target.value > 59) {
                     e.target.value = 59;
                   }
+                  setState({
+                    name: state.name,
+                    core_time_start: state.core_time_start,
+                    core: state.core,
+                    core_time_hours: state.core_time_hours,
+                    work_hour: e.target.value,
+                    default_start_hour: state.default_start_hour,
+                    default: state.default,
+                  });
                 }}
               ></Input>
             </Li>
@@ -65,6 +117,15 @@ const Edit = () => {
                   if (e.target.value > 24) {
                     e.target.value = 24;
                   }
+                  setState({
+                    name: state.name,
+                    core_time_start: state.core_time_start,
+                    core: state.core,
+                    core_time_hours: state.core_time_hours,
+                    work_hour: state.work_hour,
+                    default_start_hour: e.target.value,
+                    default: state.default,
+                  });
                 }}
               ></Input>
             </Li>
@@ -77,18 +138,17 @@ const Edit = () => {
                   if (e.target.value > 24) {
                     e.target.value = 24;
                   }
-                }}
-              ></Input>{" "}
-            </Li>
-            <Li width={150}>
-              인원수:{" "}
-              <Input
-                width={30}
-                onInput={(e: any) => {
-                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                  setState({
+                    name: state.name,
+                    core_time_start: state.core_time_start,
+                    core: state.core,
+                    core_time_hours: state.core_time_hours,
+                    work_hour: state.work_hour,
+                    default_start_hour: state.default_start_hour,
+                    default: e.target.value,
+                  });
                 }}
               ></Input>
-              명
             </Li>
           </Ul>
         </Liprops>
