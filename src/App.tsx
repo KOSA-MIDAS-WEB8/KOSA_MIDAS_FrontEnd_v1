@@ -9,6 +9,7 @@ import { theme } from "./theme/theme";
 import Loading from "./status/loading";
 import Error from "./status/error";
 import { createGlobalStyle } from "styled-components";
+import Signup from "./users/Signup";
 
 function App() {
   const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/load" element={<Loading />} />
                 <Route path="/error" element={<Error />} />
+                <Route path="/signup" element={<Signup />} />
               </Routes>
             </BrowserRouter>
           </RecoilRoot>
