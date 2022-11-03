@@ -7,7 +7,6 @@ import { BASE_URL } from "../../../base";
 import { Link } from "react-router-dom";
 import { JsxElement } from "typescript";
 import { GoToWorkLogo } from "../../../asset";
-
 function GoToWork(): JSX.Element {
   return (
     <>

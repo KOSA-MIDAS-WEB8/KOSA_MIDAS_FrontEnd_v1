@@ -29,9 +29,11 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/./goToWork" element={<GoToWork />} />
-                <Route path="/./leaveWork" element={<LeaveWork />} />
-                <Route path="/timeline" element={<TimeLine />} />
+                <Route path="/user/goToWork" element={<GoToWork />} />
+                <Route path="/user/leaveWork" element={<LeaveWork />} />
+
+                <Route path="/user/timeline" element={<TimeLine />} />
+
                 <Route path="/admin/:adminId" element={<AdminManage />} />
               </Routes>
             </BrowserRouter>

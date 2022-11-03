@@ -23,7 +23,7 @@ function Login(): JSX.Element {
         .then((res: any) => {
           localStorage.setItem("access_token", res.data.access_token);
           alert("로그인을 성공하셨습니다");
-          if (res.role === "NORMAL") {
+          if (res.data.role === "NORMAL") {
             navigate("/main");
           } else {
             navigate("/admin");
