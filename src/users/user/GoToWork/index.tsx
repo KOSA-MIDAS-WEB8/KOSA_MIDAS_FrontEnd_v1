@@ -1,6 +1,6 @@
 import { SubTitle } from "chart.js";
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../../../base";
