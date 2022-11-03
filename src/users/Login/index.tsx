@@ -1,8 +1,32 @@
 import { SubTitle } from 'chart.js';
 import styled from 'styled-components'
 import { WelcomeImg } from '../../asset';
+import { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from "../../BASE_URL";
 
 function Login():JSX.Element {
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onLogin = async() => {
+    await axios.post(`${BASE_URL}/auth/sign-in`,{
+      id:id,
+      password:password
+    })
+    .then((res)=>{
+      console.log(res.data.access_token);
+      localStorage.setItem("access_token", res.data.access_token);
+      alert("로그인을 성공하셨습니다");
+      navigate('/main');
+    }).catch((err)=>{
+      alert("아이디가 없거나 비밀번호가 틀리셨습니다.")
+      console.log(err);
+    })
+  }
+
   return (
     <Container>
       <LogoWrap>
@@ -10,12 +34,12 @@ function Login():JSX.Element {
       </LogoWrap>
       <LoginForm>
         <LoginTxt>로그인</LoginTxt>
-        <LoginLabelId>아이디</LoginLabelId>
-        <LoginInputId/>
-        <LoginLabelPw>비밀번호</LoginLabelPw>
-        <LoginInputPw/>
-        <LoginBtn>로그인</LoginBtn>
-        <GoSignUp>계정이 없다면? 가입 하러가기</GoSignUp>
+        <LoginLabel margin="39">아이디</LoginLabel>
+        <LoginInput margin="44" onChange={(e)=>(setId(e.target.value))}/>
+        <LoginLabel margin="24">비밀번호</LoginLabel>
+        <LoginInput margin="29" type="password" onChange={(e)=>{setPassword(e.target.value)}}/>
+        <LoginBtn onClick={onLogin}>로그인</LoginBtn>
+        <GoSignUp href="/signup">계정이 없다면? 가입 하러가기</GoSignUp>
       </LoginForm>
     </Container>
   );
@@ -34,6 +58,7 @@ const Container = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 `;
+
 const LogoWrap = styled.div`
   background-color:#A7B9FF;
   width: 534px;
@@ -56,22 +81,19 @@ const LoginForm = styled.form `
   display: flex;
   flex-direction: column;
 `;
-const XBtn = styled.div`
-  float: right;
-  font-weight: 400;
-  font-size: 40px;
-`
+
 const LoginTxt = styled.span`
   color:black; 
   font-size: 48px;
   margin-bottom:40px;
 `
-const LoginLabel = styled.label`
+
+const LoginLabel = styled.label<{margin:string}>`
   color:black ; 
   font-size: 32px;
-  margin-bottom:39px;
+  margin-bottom:${(props)=>`${props.margin}px`};
 `
-const LoginInput = styled.input`
+const LoginInput = styled.input<{margin:string}>`
   width: 434px;
   height: 59px;
   background-color: #D9D9D9;
@@ -80,19 +102,9 @@ const LoginInput = styled.input`
   font-weight: 500;
   border: 0px;
   padding:0px 23px;
+  margin-bottom:${(props)=>`${props.margin}px`};
 `
-const LoginLabelId = styled(LoginLabel)`
-  margin-bottom: 39px; 
-`
-const LoginInputId = styled(LoginInput)`
-  margin-bottom: 44px;
-`;
-const LoginLabelPw = styled(LoginLabel)`
-  margin-bottom: 24px; 
-`
-const LoginInputPw = styled(LoginInput)`
-  margin-bottom: 29px;
-`;
+
 
 const LoginBtn = styled.button`
   color:white; 
@@ -105,9 +117,11 @@ const LoginBtn = styled.button`
   border: 0px;
   margin-bottom: 53px;
 `
-const GoSignUp = styled.p`
+const GoSignUp = styled.a`
   font-size: 24px ; 
   font-weight: 500; 
+  color:black ; 
+  text-decoration: none;
 `
 
 
