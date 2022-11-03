@@ -1,12 +1,12 @@
 import styled, { keyframes } from "styled-components";
-const Error: React.FC = () => {
+const Loading: React.FC = () => {
   return (
     <>
       <Spinner />
     </>
   );
 };
-export default Error;
+export default Loading;
 const Spinner = styled.div``;
 const Turn = keyframes`
   0% {
