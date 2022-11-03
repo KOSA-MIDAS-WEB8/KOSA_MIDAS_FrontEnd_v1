@@ -13,6 +13,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import GoToWork from "./users/user/GoToWork";
 import LeaveWork from "./users/user/LeaveWork";
 import AdminManage from "./users/admin/manage";
+import TimeLine from './users/user/TimeLine';
 function App() {
   const queryClient = new QueryClient();
   return (
@@ -28,8 +29,9 @@ function App() {
                 <Route path="/admin" element={<Admin />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/login" element={<Login />} />
-                <Route path="/goToWork" element={<GoToWork />} />
-                <Route path="/leaveWork" element={<LeaveWork />} />
+                <Route path="/./goToWork" element={<GoToWork />} />
+                <Route path="/./leaveWork" element={<LeaveWork />} />
+                <Route path="/timeline" element={<TimeLine />} />
                 <Route path="/admin/:adminId" element={<AdminManage />} />
               </Routes>
             </BrowserRouter>
